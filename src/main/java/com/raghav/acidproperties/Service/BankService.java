@@ -16,8 +16,8 @@ public class BankService {
     private final AuditService auditService;
 
     //ATOMICITY ALL transactions or no transactions if not transaction then complete Rollback
-
-    @Transactional(rollbackFor = Exception.class,isolation = Isolation.REPEATABLE_READ)
+    //When @Transactional is used Durability is confirmed
+    @Transactional(rollbackFor = Exception.class,isolation = Isolation.REPEATABLE_READ)//Isolation
     public void transfer(Long fromId, Long toId, BigDecimal amount){
         Account from = accountRepository.findById(fromId)
                 .orElseThrow(()->new RuntimeException("Sender Not found"));
@@ -37,7 +37,7 @@ public class BankService {
 
         auditService.logTransfer(fromId, toId, amount);
 
-        if (amount.compareTo(new BigDecimal("50000")) > 0) {
+        if (amount.compareTo(new BigDecimal("50000")) > 0) {//consistency
             throw new RuntimeException("Transfer limit exceeded");
         }
 

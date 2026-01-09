@@ -23,4 +23,7 @@ public class AuditLog {
     private String msg;
     private LocalDateTime CreatedAt = LocalDateTime.now();
 
+    public AuditLog(String s) {
+
+    }
 }
