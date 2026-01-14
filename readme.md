@@ -1,3 +1,4 @@
+## ACID PROPERTIES 
 ## 1. Atomicity
 This ensure transactions are threaded as single unit of work. If some failure happen during the transaction the entire transaction is rollback to its previous state.
 
